@@ -69,4 +69,5 @@ public class Ticket {
                 ", tokenTransaction='" + tokenTransaction + '\'' +
                 '}';
     }
+
 }
