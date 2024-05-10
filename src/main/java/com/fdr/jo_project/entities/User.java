@@ -14,15 +14,19 @@ public class User {
     private String name;
     private String firstname;
     private String email;
+    private String password;
+    private String tokenUser;
 
     public User() {
         super();
     }
 
-    public User(String name, String firstname, String email) {
+    public User(String name, String firstname, String email, String  password) {
         this.name = name;
         this.firstname = firstname;
         this.email = email;
+        this.password = password;
+        this.tokenUser = tokenUser;
     }
 
     public Long getIdUser() {
@@ -57,10 +61,25 @@ public class User {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getTokenUser() {
+        return tokenUser;
+    }
+
+    public void setTokenUser(String tokenUser) {
+        this.tokenUser = tokenUser;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "idUser=" + idUser +
                 ", name='" + name + '\'' +
                 ", firstname='" + firstname + '\'' +
                 ", email='" + email + '\'' +
