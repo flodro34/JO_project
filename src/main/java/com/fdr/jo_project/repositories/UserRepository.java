@@ -1,4 +1,7 @@
 package com.fdr.jo_project.repositories;
 
-public interface UserRepository {
+import com.fdr.jo_project.entities.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserRepository extends JpaRepository<User, Long> {
 }

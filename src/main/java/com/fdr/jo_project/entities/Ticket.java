@@ -1,10 +1,9 @@
 package com.fdr.jo_project.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 public class Ticket {
 
@@ -12,61 +11,52 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTicket;
 
-    private String typeOffer;
+    private Long idOffer;
+
     private String tokenTicket;
 
     private String tokenUser;
 
     private String tokenTransaction;
 
-    public Long getIdTicket() {
-        return idTicket;
+    @ManyToOne
+    @JoinColumn(name = "user_tokenUser", referencedColumnName = "tokenUser")
+
+    private User user;
+
+    public Ticket() {
+
     }
 
-    public void setIdTicket(Long idTicket) {
-        this.idTicket = idTicket;
-    }
-
-    public String getTypeOffer() {
-        return typeOffer;
-    }
-
-    public void setTypeOffer(String typeOffer) {
-        this.typeOffer = typeOffer;
-    }
-
-    public String getTokenTicket() {
-        return tokenTicket;
-    }
-
-    public void setTokenTicket(String tokenTicket) {
-        this.tokenTicket = tokenTicket;
-    }
-
-    public String getTokenUser() {
-        return tokenUser;
-    }
-
-    public void setTokenUser(String tokenUser) {
-        this.tokenUser = tokenUser;
-    }
-
-    public String getTokenTransaction() {
-        return tokenTransaction;
-    }
-
-    public void setTokenTransaction(String tokenTransaction) {
+    public Ticket(long idOffer,String tokenTransaction) {
+        this.idOffer = idOffer;
         this.tokenTransaction = tokenTransaction;
     }
+
+    @PrePersist
+    @PreUpdate
+    private void prepareData() {
+        if (user != null) {
+            this.tokenUser = user.getTokenUser();
+        }
+        this.tokenTicket = generateTokenTicket();
+    }
+
+    private String generateTokenTicket() {
+        return tokenUser + "-" + tokenTransaction;
+    }
+
+
 
     @Override
     public String toString() {
         return "Ticket{" +
                 "idTicket=" + idTicket +
-                ", typeOffer='" + typeOffer + '\'' +
+                ", type of Offer='" + idOffer + '\'' +
                 ", tokenTicket='" + tokenTicket + '\'' +
                 ", tokenUser='" + tokenUser + '\'' +
                 ", tokenTransaction='" + tokenTransaction + '\'' +
+                ", user=" + (user != null ? user.toString() : "null") +
                 '}';
     }
 
