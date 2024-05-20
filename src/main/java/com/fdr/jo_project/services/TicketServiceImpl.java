@@ -11,8 +11,9 @@ import java.util.Optional;
 @Service
 public class TicketServiceImpl implements TicketService{
 
-
+    @Autowired
     TicketRepository ticketRepository;
+
     @Override
     public Ticket saveTicket(Ticket t) {
         return ticketRepository.save(t);
@@ -35,12 +36,22 @@ public class TicketServiceImpl implements TicketService{
     }
 
     @Override
-    public Optional<Ticket> getTicket(Long id) {
-        return Optional.of(ticketRepository.findById(id).get());
+    public Ticket getTicket(Long id) {
+        return ticketRepository.findById(id).get();
     }
 
     @Override
     public List<Ticket> getAllTickets() {
         return ticketRepository.findAll();
+    }
+
+    @Override
+    public List<Ticket> findByTokenUser(String tokenUser) {
+        return ticketRepository.findByTokenUser(tokenUser);
+    }
+
+    @Override
+    public List<Ticket> findByUserIdUser(Long id) {
+        return ticketRepository.findByUserIdUser(id);
     }
 }

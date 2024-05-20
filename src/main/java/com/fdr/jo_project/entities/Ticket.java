@@ -11,7 +11,9 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTicket;
 
-    private Long idOffer;
+    @OneToOne
+    @JoinColumn(name = "idOffer", referencedColumnName = "idOffer")
+    private Offer offer;
 
     private String tokenTicket;
 
@@ -28,8 +30,8 @@ public class Ticket {
 
     }
 
-    public Ticket(long idOffer,String tokenTransaction) {
-        this.idOffer = idOffer;
+    public Ticket(Offer offer,String tokenTransaction) {
+        this.offer = offer;
         this.tokenTransaction = tokenTransaction;
     }
 
@@ -46,13 +48,11 @@ public class Ticket {
         return tokenUser + "-" + tokenTransaction;
     }
 
-
-
     @Override
     public String toString() {
         return "Ticket{" +
                 "idTicket=" + idTicket +
-                ", type of Offer='" + idOffer + '\'' +
+                ", type of Offer='" + (offer != null ? offer.toString() : "null") +
                 ", tokenTicket='" + tokenTicket + '\'' +
                 ", tokenUser='" + tokenUser + '\'' +
                 ", tokenTransaction='" + tokenTransaction + '\'' +

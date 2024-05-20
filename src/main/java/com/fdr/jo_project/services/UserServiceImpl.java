@@ -9,6 +9,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService{
 
     UserRepository userRepository;
+
     @Override
     public User saveUser(User u) {
         return userRepository.save(u);
@@ -30,8 +31,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Optional<User> getUser(Long id) {
-        return Optional.of(userRepository.findById(id).get());
+    public User getUser(Long id) {
+        return userRepository.findById(id).get();
     }
 
     @Override

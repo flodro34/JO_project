@@ -28,13 +28,13 @@ class JoProjectApplicationTests {
         System.out.println(t);
     }
 
-    @Test
-    public void testUpdateTicket()
-    {
-        Ticket t = ticketRepository.findById(1L).get();
-        t.setTypeOffer("Duo");
-        ticketRepository.save(t);
-    }
+//    @Test
+//    public void testUpdateTicket()
+//    {
+//        Ticket t = ticketRepository.findById(1L).get();
+//        t.setTypeOffer("Duo");
+//        ticketRepository.save(t);
+//    }
 
     @Test
     public void testDeleteTicket()

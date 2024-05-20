@@ -1,19 +1,24 @@
 package com.fdr.jo_project.services;
 
 import com.fdr.jo_project.entities.Transaction;
+import com.fdr.jo_project.repositories.TransactionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-import java.util.Optional;
 
 public class TransactionServiceImpl implements TransactionService{
+
+    @Autowired
+    TransactionRepository transactionRepository;
+
     @Override
     public Transaction saveTransaction(Transaction t) {
-        return null;
+        return transactionRepository.save(t);
     }
 
     @Override
     public Transaction updateTransaction(Transaction t) {
-        return null;
+        return transactionRepository.save(t);
     }
 
     @Override
@@ -23,16 +28,16 @@ public class TransactionServiceImpl implements TransactionService{
 
     @Override
     public void deleteTransactionById(Long id) {
-
+        transactionRepository.deleteById(id);
     }
 
     @Override
-    public Optional<Transaction> getUser(Long id) {
-        return Optional.empty();
+    public Transaction getTransaction(Long id) {
+        return transactionRepository.findById(id).get();
     }
 
     @Override
-    public List<Transaction> getAllUsers() {
-        return List.of();
+    public List<Transaction> getAllTransactions() {
+        return transactionRepository.findAll();
     }
 }

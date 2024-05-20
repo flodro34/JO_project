@@ -12,7 +12,7 @@ public interface UserService {
     User updateUser(User u);
     void deleteUser(User u);
     void deleteUserById(Long id);
-    Optional<User> getUser (Long id);
+    User getUser (Long id);
     List<User> getAllUsers();
 
     boolean isValidTokenUser(String tokenUser);
