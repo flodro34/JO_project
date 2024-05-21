@@ -1,5 +1,6 @@
 package com.fdr.jo_project.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -23,7 +24,7 @@ public class Ticket {
 
     @ManyToOne
     @JoinColumn(name = "user_tokenUser", referencedColumnName = "tokenUser")
-
+    @JsonIgnore
     private User user;
 
     public Ticket() {

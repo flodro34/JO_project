@@ -1,5 +1,6 @@
 package com.fdr.jo_project.controllers;
 
+import com.fdr.jo_project.dto.TicketDTO;
 import com.fdr.jo_project.services.TicketService;
 import com.fdr.jo_project.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/ticket")
 @CrossOrigin
 public class TicketController {
 
@@ -57,24 +58,24 @@ public class TicketController {
 //    }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Ticket> getAllTickets(){
+    public List<TicketDTO> getAllTickets(){
         return ticketService.getAllTickets();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Ticket getTicketById(@PathVariable("id") Long id){
+    public TicketDTO getTicketById(@PathVariable("id") Long id){
         return ticketService.getTicket(id);
     }
 
     //Méthode pour test
     @RequestMapping(method = RequestMethod.POST)
-    public Ticket createTicket(@RequestBody Ticket ticket){
-        return ticketService.saveTicket(ticket);
+    public TicketDTO createTicket(@RequestBody TicketDTO ticketDTO){
+        return ticketService.saveTicket(ticketDTO);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public Ticket updateTicket(@RequestBody Ticket ticket){
-        return ticketService.updateTicket(ticket);
+    public TicketDTO updateTicket(@RequestBody TicketDTO ticketDTO){
+        return ticketService.updateTicket(ticketDTO);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

@@ -3,9 +3,11 @@ package com.fdr.jo_project.services;
 import com.fdr.jo_project.entities.Transaction;
 import com.fdr.jo_project.repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class TransactionServiceImpl implements TransactionService{
 
     @Autowired

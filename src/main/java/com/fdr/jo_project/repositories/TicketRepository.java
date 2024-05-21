@@ -7,7 +7,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.List;
 
-@RepositoryRestResource(path = "ticket")
+
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
     List<Ticket> findByTokenUser(String tokenUser);

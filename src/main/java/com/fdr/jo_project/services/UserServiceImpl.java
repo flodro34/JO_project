@@ -2,10 +2,12 @@ package com.fdr.jo_project.services;
 
 import com.fdr.jo_project.entities.User;
 import com.fdr.jo_project.repositories.UserRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class UserServiceImpl implements UserService{
 
     UserRepository userRepository;

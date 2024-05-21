@@ -16,14 +16,14 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long idUser;
-    protected String lastname;
-    protected String firstname;
-    protected String email;
-    protected String password;
+    private Long idUser;
+    private String lastname;
+    private String firstname;
+    private String email;
+    private String password;
     @Column(unique = true)
-    protected String tokenUser;
-    protected boolean isAdmin;
+    private String tokenUser;
+    private boolean isAdmin;
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore
