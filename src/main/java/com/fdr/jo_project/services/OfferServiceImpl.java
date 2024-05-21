@@ -1,11 +1,17 @@
 package com.fdr.jo_project.services;
 
+import com.fdr.jo_project.dto.OfferDTO;
+import com.fdr.jo_project.dto.TicketDTO;
 import com.fdr.jo_project.entities.Offer;
+import com.fdr.jo_project.entities.Ticket;
 import com.fdr.jo_project.repositories.OfferRepository;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -14,14 +20,32 @@ public class OfferServiceImpl implements OfferService{
     @Autowired
     OfferRepository offerRepository;
 
+    @Autowired
+    ModelMapper modelMapper;
+
     @Override
-    public Offer saveOffer(Offer o) {
-        return offerRepository.save(o);
+    public OfferDTO saveOffer(OfferDTO o) {
+        return convertEntityToDTO(offerRepository.save(convertDTOToEntity(o)));
     }
 
     @Override
-    public Offer updateOffer(Offer o) {
-        return offerRepository.save(o);
+    public OfferDTO updateOffer(OfferDTO o) {
+
+        return convertEntityToDTO(offerRepository.save(convertDTOToEntity(o)));
+    }
+
+
+    @Override
+    public OfferDTO getOffer(Long id) {
+
+       return convertEntityToDTO(offerRepository.findById(id).get());
+    }
+
+    @Override
+    public List<OfferDTO> getAllOffers() {
+        return offerRepository.findAll().stream()
+                .map(this::convertEntityToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -34,13 +58,19 @@ public class OfferServiceImpl implements OfferService{
         offerRepository.deleteById(id);
     }
 
+
     @Override
-    public Offer getOffer(Long id) {
-        return offerRepository.findById(id).get();
+    public OfferDTO convertEntityToDTO(Offer o) {
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+        OfferDTO offerDTO = modelMapper.map(o, OfferDTO.class);
+        return offerDTO;
     }
 
     @Override
-    public List<Offer> getAllOffers() {
-        return offerRepository.findAll();
+    public Offer convertDTOToEntity(OfferDTO offerDTO) {
+        Offer offer = new Offer();
+        offer = modelMapper.map(offerDTO, Offer.class);
+        return offer;
     }
+
 }

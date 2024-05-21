@@ -16,8 +16,6 @@ public interface TicketService {
     void deleteTicket(Ticket t);
     void deleteTicketById(Long id);
 
-
-
     List<Ticket> findByTokenUser(String tokenUser);
     List<Ticket> findByUserIdUser(Long id);
 
