@@ -1,4 +1,50 @@
-<h1>Bonjour {{ title }}</h1>
-
-
-<router-outlet />
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <a class="navbar-brand" href="#">
+    <img
+      src="https://img.lemde.fr/2019/10/21/0/0/2954/2954/664/0/75/0/4720a24_xOn_i9bVmi4i4W6jPJrSzUxM.png"
+      alt="Logo"
+      style="width: 110px"
+    />
+  </a>
+  <a class="navbar-brand" href="/home">Billetterie des Jeux Olympiques</a>
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/offers">Les offres</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/add-offer">Ajout d'une offre</a>
+    </li>
+    <li class="nav-item dropdown">
+      <a
+        class="nav-link dropdown-toggle"
+        href="#"
+        id="navbardrop"
+        data-toggle="dropdown"
+      >
+        Réservations
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="/add-ticket">Faire une réservation</a>
+        <a class="dropdown-item" routerLink="/tickets">Liste des e-tickets</a>
+      </div>
+    </li>
+  </ul>
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item dropdown">
+      <a
+        class="nav-link dropdown-toggle"
+        href="#"
+        id="navbardrop"
+        data-toggle="dropdown"
+      >
+        [username]
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">login</a>
+        <a class="dropdown-item" href="#">logout</a>
+        <a class="dropdown-item" href="#">Profile</a>
+      </div>
+    </li>
+  </ul>
+</nav>
+<router-outlet></router-outlet>

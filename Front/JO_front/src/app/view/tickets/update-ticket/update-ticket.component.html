@@ -1,0 +1,95 @@
+<div class="container">
+  <h2>Modifier mon e-ticket</h2>
+  <div class="card shadow m-4">
+    <form (ngSubmit)="updateTicket()">
+      <div hidden class="form-group row m-md-5">
+        <label class="col-sm-2 col-form-label">ID ticket</label>
+        <div class="col-sm-10">
+          <input
+            type="number"
+            [ngModel]="currentTicket.idTicket"
+            (ngModelChange)="currentTicket.idTicket = $event"
+            name="idTicket"
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div class="form-group row m-md-5">
+        <label class="col-sm-2 col-form-label">Type d'offre</label>
+        <div class="col-sm-10">
+          <input
+            readonly
+            class="form-control form-control-lg"
+            id="idOff"
+            name="idOffer"
+            [ngModel]="currentTicket.typeOffer?.type"
+            (ngModelChange)="currentTicket.typeOffer = $event"
+          />
+        </div>
+      </div>
+      <div class="form-group row m-md-5">
+        <label class="col-sm-2 col-form-label">Date</label>
+        <div class="col-sm-10">
+          <input
+            type="date"
+            [ngModel]="currentTicket.date | date : 'yyyy-MM-dd'"
+            (ngModelChange)="currentTicket.date = $event"
+            name="date"
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div hidden class="form-group row m-md-5">
+        <label class="col-sm-2 col-form-label">Token du ticket</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            [ngModel]="currentTicket.tokenTicket"
+            (ngModelChange)="currentTicket.tokenTicket = $event"
+            name="tokenTicket"
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div hidden class="form-group row m-md-5">
+        <label class="col-sm-2 col-form-label">Token de l'utilisateur</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            [ngModel]="currentTicket.tokenUser"
+            (ngModelChange)="currentTicket.tokenUser = $event"
+            name="tokenUser"
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div hidden class="form-group row m-md-5">
+        <label class="col-sm-2 col-form-label">Token de la transaction</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            [ngModel]="currentTicket.tokenTransaction"
+            (ngModelChange)="currentTicket.tokenTransaction = $event"
+            name="tokenTransaction"
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div class="p-5">
+        <button type="submit" class="btn btn-outline-success">
+          Modifier la date mon e-ticket
+        </button>
+        <div>
+          <div
+            id="alert"
+            *ngIf="message"
+            class="alert alert-success"
+            role="alert"
+          >
+            {{ message }}
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

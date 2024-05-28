@@ -1,8 +1,13 @@
 package com.fdr.jo_project.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.sql.Date;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -15,6 +20,10 @@ public class Ticket {
     @OneToOne
     @JoinColumn(name = "idOffer", referencedColumnName = "idOffer")
     private Offer offer;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate date;
 
     private String tokenTicket;
 
@@ -31,9 +40,9 @@ public class Ticket {
 
     }
 
-    public Ticket(Offer offer,String tokenTransaction) {
+    public Ticket(Offer offer,Date date) {
         this.offer = offer;
-        this.tokenTransaction = tokenTransaction;
+        this.date = date.toLocalDate();
     }
 
     @PrePersist
@@ -54,6 +63,7 @@ public class Ticket {
         return "Ticket{" +
                 "idTicket=" + idTicket +
                 ", type of Offer='" + (offer != null ? offer.toString() : "null") +
+                ", date=" + date +
                 ", tokenTicket='" + tokenTicket + '\'' +
                 ", tokenUser='" + tokenUser + '\'' +
                 ", tokenTransaction='" + tokenTransaction + '\'' +

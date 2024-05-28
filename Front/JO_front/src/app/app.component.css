@@ -1,0 +1,11 @@
+h2 {
+  color: #c14949;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+#alert  {
+  width: 50%;
+  text-align: center;
+  margin-top: 15px;
+}

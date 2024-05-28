@@ -1,0 +1,93 @@
+<div class="container">
+  <h2>Acheter votre e-ticket</h2>
+  <div class="card shadow m-4">
+    <form (ngSubmit)="addTicket()">
+      <div class="form-group row m-md-5">
+        <label class="col-sm-2 col-form-label">ID ticket</label>
+        <div class="col-sm-10">
+          <input
+            type="number"
+            [(ngModel)]="newTicket.idTicket"
+            (ngModelChange)="newTicket.idTicket = $event"
+            name="idTicket"
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div class="form-group row m-md-5">
+        <label class="col-sm-2 col-form-label">Type d'offre</label>
+        <div class="col-sm-10">
+          <select
+            class="form-control form-control-lg"
+            id="idOff"
+            name="idOffer"
+            [(ngModel)]="newIdOff"
+            (ngModelChange)="newIdOff = $event"
+          >
+            <option *ngFor="let off of offers" [value]="off.idOffer">
+              {{ off.type }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row m-md-5">
+        <label class="col-sm-2 col-form-label">Date</label>
+        <div class="col-sm-10">
+          <input
+            type="date"
+            [(ngModel)]="newTicket.date"
+            (ngModelChange)="newTicket.date = $event"
+            name="date"
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div class="form-group row m-md-5">
+        <label class="col-sm-2 col-form-label">Token du ticket</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            [(ngModel)]="newTicket.tokenTicket"
+            (ngModelChange)="newTicket.tokenTicket = $event"
+            name="tokenTicket"
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div class="form-group row m-md-5">
+        <label class="col-sm-2 col-form-label">Token de l'utilisateur</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            [(ngModel)]="newTicket.tokenUser"
+            (ngModelChange)="newTicket.tokenUser = $event"
+            name="tokenUser"
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div class="form-group row m-md-5">
+        <label class="col-sm-2 col-form-label">Token de la transaction</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            [(ngModel)]="newTicket.tokenTransaction"
+            (ngModelChange)="newTicket.tokenTransaction = $event"
+            name="tokenTransaction"
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div class="p-5">
+        <button type="submit" class="btn btn-outline-success">
+          Acheter le e-ticket
+        </button>
+        <div>
+          <div id="alert" *ngIf="message" class="alert alert-success" role="alert">
+            {{ message }}
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

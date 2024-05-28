@@ -1,0 +1,32 @@
+<div class="container">
+  <h2>Liste des Offres</h2>
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Type d'offre</th>
+            <th>Prix</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let offer of offers">
+          <tr>
+            <td>{{ offer.type }}</td>
+            <td>{{ offer.price }}</td>
+            <td>
+              <a
+                class="btn btn-outline-warning"
+                [routerLink]="['/update-offer', offer.idOffer]"
+                >Editer</a
+              ><a class="btn btn-outline-danger" (click)="deleteOffer(offer)"
+                >Supprimer</a
+              >
+            </td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

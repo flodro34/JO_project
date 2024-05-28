@@ -1,5 +1,6 @@
 package com.fdr.jo_project.controllers;
 
+import com.fdr.jo_project.dto.OfferDTO;
 import com.fdr.jo_project.entities.Offer;
 import com.fdr.jo_project.services.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,24 +17,24 @@ public class OfferController {
     OfferService offerService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Offer> getAllOffers(){
+    public List<OfferDTO> getAllOffers(){
         return offerService.getAllOffers();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Offer getOfferById(@PathVariable("id") Long id){
+    public OfferDTO getOfferById(@PathVariable("id") Long id){
         return offerService.getOffer(id);
     }
 
     //Méthode pour test
     @RequestMapping(method = RequestMethod.POST)
-    public Offer createTicket(@RequestBody Offer offer){
-        return offerService.saveOffer(offer);
+    public OfferDTO createTicket(@RequestBody OfferDTO offerDTO){
+        return offerService.saveOffer(offerDTO);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public Offer updateTicket(@RequestBody Offer offer){
-        return offerService.updateOffer(offer);
+    public OfferDTO updateTicket(@RequestBody OfferDTO offerDTO){
+        return offerService.updateOffer(offerDTO);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

@@ -1,0 +1,50 @@
+<div class="container">
+    <h2>Ajouter une offre</h2>
+    <div class="card shadow m-4">
+      <form>
+        <div class="form-group row m-md-5">
+          <label class="col-sm-2 col-form-label">ID offre</label>
+          <div class="col-sm-10">
+            <input
+              type="text"
+              [(ngModel)]="currentOffer.idOffer"
+              name="idOffer"
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="form-group row m-md-5">
+          <label class="col-sm-2 col-form-label">Type de l'offre</label>
+          <div class="col-sm-10">
+            <input
+              type="text"
+              [(ngModel)]="currentOffer.type"
+              name="type"
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="form-group row m-md-5">
+          <label class="col-sm-2 col-form-label">Prix de l'offre</label>
+          <div class="col-sm-10">
+            <input
+              type="number"
+              [(ngModel)]="currentOffer.price"
+              name="price"
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="p-5">
+          <button
+            type="submit"
+            (click)="updateOffer()"
+            class="btn btn-outline-success"
+          >
+            Modifier cette offre
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

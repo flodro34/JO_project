@@ -1,0 +1,32 @@
+<div class="container">
+  <h2>Liste de mes e-tickets</h2>
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Mes Tickets</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let ticket of tickets">
+          <tr>
+            <td>{{ ticket.typeOffer?.type }}</td>
+            <td>{{ ticket.date }}</td>
+            <td>{{ ticket.tokenTicket }}</td>
+
+            <td>
+              <a
+                class="btn btn-outline-warning"
+                [routerLink]="['/update-ticket', ticket.idTicket]"
+                >Editer</a
+              ><a class="btn btn-outline-danger" (click)="deleteTicket(ticket)"
+                >Supprimer</a
+              >
+            </td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
