@@ -4,12 +4,12 @@ import { User } from './user.model';
 
 export class Ticket {
 
-    idTicket? : number;
-    typeOffer? : Offer;
-    date? : Date ;
-    tokenTicket?: string;
-    tokenUser?: User["tokenUser"];
-    tokenTransaction?: Transaction["tokenTransaction"];
+    idTicket! : number;
+    typeOffer! : Offer;
+    date! : Date ;
+    tokenTicket!: string;
+    tokenUser!: User["tokenUser"];
+    tokenTransaction!: Transaction["tokenTransaction"];
 
     constructor() {
         if (this.tokenUser && this.tokenTransaction) {

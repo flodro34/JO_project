@@ -1,47 +1,51 @@
 import { Injectable } from '@angular/core';
 import { Offer } from '../model/offer.model';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+};
 @Injectable({
   providedIn: 'root'
 })
+
 export class OfferService {
 
-  offers : Offer[];
-  offer!: Offer;
+  apiURL = 'http://localhost:8080/JO/api/offers';
+  offers? : Offer[] ;
 
-  constructor() { 
-    
-    this.offers = [
-      {idOffer: 1, type: "Solo", price: "100"},
-      {idOffer: 2, type: "Duo", price: "200"},
-      {idOffer: 3, type: "Familly", price: "300"},
-    ];
+  constructor(private http: HttpClient) { 
+
   }
 
-  listOffers(): Offer[]{
-    return this.offers;
+  getOffer(id:number): Observable<Offer>{
+    const url = `${this.apiURL}/${id}`;
+    return this.http.get<Offer>(url);
   }
 
-  addOffer(offer: Offer){
-    this.offers.push(offer);
+  getAllOffers(): Observable<Offer[]>{
+    return this.http.get<Offer[]>(this.apiURL);
   }
 
-  deleteOffer(offer: Offer){
-    this.offers = this.offers.filter(o => o.idOffer !== offer.idOffer);
-  }
-
-  updateOffer(offer: Offer){
-  this.offers = this.offers.map(o => o.idOffer === offer.idOffer ? offer : o); 
-  }
-
-
-  getOffer(id:number): Offer{
-  return this.offers.find(p => p.idOffer == id)!;
-      
+  addOffer(offer: Offer): Observable<Offer>{
+    return this.http.post<Offer>(this.apiURL, offer, httpOptions);
   }
 
   readOffer(id:number): Offer{
-    return this.offers.find(o => o.idOffer == id)!;
+    return this.offers?.find(o => o.idOffer == id)!;
+  }
+
+  deleteOffer(id:number){
+    const url = `${this.apiURL}/${id}`;
+    return this.http.delete(url, httpOptions);
+  }
+
+  updateOffer(offer: Offer): Observable<Offer>{
+    return this.http.put<Offer>(this.apiURL, offer, httpOptions);
   }
 
 }

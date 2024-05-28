@@ -16,16 +16,26 @@ export class TicketsComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.tickets =this.ticketService.listTickets();
+    this.loadTickets();
+  }
+
+  loadTickets(){
+    this.ticketService.getAllTickets().subscribe((tickets) => {
+      this.tickets = tickets;
+      console.log(tickets);
+    });
   }
 
   deleteTicket(ticket: Ticket){
-    console.log(ticket);
-    this.ticketService.deleteTicket(ticket);
-  }
+    let confirm = window.confirm("Are you sure you want to delete this ticket?");
+    if (confirm){
+      if (ticket.idTicket) {
+        this.ticketService.deleteTicket(ticket.idTicket).subscribe(() => {
+          this.loadTickets();
+        });
+      }
+    }
 
-  updateTicket(ticket: Ticket){
-    console.log(ticket);
-    this.ticketService.updateTicket(ticket);
-  }
+    }
+
 }

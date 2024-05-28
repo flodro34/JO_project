@@ -12,19 +12,28 @@ export class UpdateOfferComponent implements OnInit{
 
   currentOffer = new Offer();
 
+  message: string = "";
+
   constructor(private activatedRoute: ActivatedRoute,
     private router :Router,
     private offerService: OfferService) { }
 
   ngOnInit(): void {
-    console.log(this.activatedRoute.snapshot.params['id']);
-    this.currentOffer = this.offerService.getOffer(this.activatedRoute.snapshot.params['id']);
-    console.log(this.currentOffer);
+    this.offerService.getOffer(this.activatedRoute.snapshot.params['id']).subscribe(offer => {
+      this.currentOffer = offer;
+    });;
   }
 
   updateOffer(){
-    this.offerService.updateOffer(this.currentOffer);
-    this.router.navigate(['offers']);
+    this.offerService.updateOffer(this.currentOffer).subscribe(offer => {
+      this.message = "Offer " + this.currentOffer.type + " modify with success";
+      console.log(this.currentOffer);
+
+      setTimeout(() => {
+        this.router.navigate(['offers']);
+      }, 1000); 
+    });
+
   }
 
 }

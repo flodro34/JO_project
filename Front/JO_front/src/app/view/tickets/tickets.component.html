@@ -10,20 +10,15 @@
         </thead>
         <tbody *ngFor="let ticket of tickets">
           <tr>
-            <td>{{ ticket.typeOffer?.type }}</td>
-            <td>{{ ticket.date }}</td>
+            <td>{{ ticket.typeOffer.type}}</td>
+            <td>{{ ticket.date | date : "dd/MM/yyyy" }}</td>
             <td>{{ ticket.tokenTicket }}</td>
-
-            <td>
               <a
                 class="btn btn-outline-warning"
                 [routerLink]="['/update-ticket', ticket.idTicket]"
                 >Editer</a
               ><a class="btn btn-outline-danger" (click)="deleteTicket(ticket)"
-                >Supprimer</a
-              >
-            </td>
-            <td></td>
+                >Supprimer</a>
           </tr>
         </tbody>
       </table>

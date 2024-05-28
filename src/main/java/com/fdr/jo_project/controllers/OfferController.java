@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/offer")
-@CrossOrigin
+@RequestMapping("/api/offers")
+@CrossOrigin("")
 public class OfferController {
 
     @Autowired

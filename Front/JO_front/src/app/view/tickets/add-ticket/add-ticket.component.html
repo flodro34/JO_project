@@ -2,7 +2,7 @@
   <h2>Acheter votre e-ticket</h2>
   <div class="card shadow m-4">
     <form (ngSubmit)="addTicket()">
-      <div class="form-group row m-md-5">
+      <div hidden class="form-group row m-md-5">
         <label class="col-sm-2 col-form-label">ID ticket</label>
         <div class="col-sm-10">
           <input
@@ -19,7 +19,7 @@
         <div class="col-sm-10">
           <select
             class="form-control form-control-lg"
-            id="idOff"
+            id="idOffer"
             name="idOffer"
             [(ngModel)]="newIdOff"
             (ngModelChange)="newIdOff = $event"

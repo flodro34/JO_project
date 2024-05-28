@@ -12,13 +12,8 @@ import { AddTicketComponent } from './view/tickets/add-ticket/add-ticket.compone
 import { HomeComponent } from './view/home/home.component';
 import { UpdateOfferComponent } from './view/offers/update-offer/update-offer.component';
 import { UpdateTicketComponent } from './view/tickets/update-ticket/update-ticket.component';
+import { HttpClientModule } from '@angular/common/http';
 
-
-// const routes: Routes = [
-//   { path: 'tickets', component: TicketsComponent },
-//   // { path: 'add-produit', component: AddProduitComponent },
-//   // Ajoutez d'autres routes ici
-// ];
 
 @NgModule({
   declarations: [
@@ -34,9 +29,9 @@ import { UpdateTicketComponent } from './view/tickets/update-ticket/update-ticke
   ],
   imports: [
     BrowserModule,
-    // RouterModule.forRoot(routes)
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

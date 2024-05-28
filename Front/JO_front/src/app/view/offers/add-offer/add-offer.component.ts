@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Offer } from '../../../model/offer.model';
 import { OfferService } from '../../../services/offer.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,16 +15,23 @@ export class AddOfferComponent implements OnInit{
 
   message :string | undefined;
 
-  constructor(private offerService: OfferService) {}
+  constructor(private offerService: OfferService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
    
   }
 
   addOffer() {
-    this.offerService.addOffer(this.newOffer);
-    this.message = "Offer " + this.newOffer.type + " added with success";
-     console.log(this.newOffer);
+    this.offerService.addOffer(this.newOffer).subscribe(offer => {
+      this.message = "Offer " + this.newOffer.type + " modify with success";
+      console.log(this.newOffer);
+
+      setTimeout(() => {
+        this.router.navigate(['offers']);
+      }, 1000); 
+    });
   }
 
 

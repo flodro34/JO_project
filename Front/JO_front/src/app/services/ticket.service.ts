@@ -1,46 +1,55 @@
 import { Injectable } from '@angular/core';
 import { Ticket } from '../model/ticket.model';
-import { DATE_PIPE_DEFAULT_OPTIONS, DATE_PIPE_DEFAULT_TIMEZONE, DatePipe, getLocaleDateTimeFormat } from '@angular/common';
-import { Offer } from '../model/offer.model';
+// import { DATE_PIPE_DEFAULT_OPTIONS, DATE_PIPE_DEFAULT_TIMEZONE, DatePipe, getLocaleDateTimeFormat } from '@angular/common';
+// import { Offer } from '../model/offer.model';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { apiURL } from '../config';
+
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class TicketService {
 
-  tickets : Ticket[];
-  ticket!: Ticket;
+  tickets: Ticket[] | undefined;
 
 
-  constructor() { 
-   
-    this.tickets = [
-      {idTicket: 7, typeOffer: {idOffer: 1, type: "Solo", price: "100"}, date : new Date("2024-06-15"), tokenTicket: "tutu", tokenUser:"userToken1", tokenTransaction:"transactionToken1"},
-      {idTicket: 8, typeOffer: {idOffer: 2, type: "Duo", price: "200"}, date : new Date("2024-05-20"), tokenTicket: "toto", tokenUser:"userToken1", tokenTransaction:"transactionToken2"},
-      {idTicket: 9, typeOffer: {idOffer: 3, type: "Familly", price: "300"}, date : new Date("2024-06-28"), tokenTicket: "tata", tokenUser:"userToken1", tokenTransaction:"transactionToken3"},
-    ];
+  constructor(private http: HttpClient) { 
+
+   }
+
+  getTicket(id:number): Observable<Ticket>{
+    const url = `${apiURL}/tickets/${id}`;
+    return this.http.get<Ticket>(url);     
   }
 
-  listTickets(): Ticket[]{
-    return this.tickets;
+  getAllTickets(): Observable<Ticket[]>{ 
+    return this.http.get<Ticket[]>(apiURL);
   }
 
-  addTicket(ticket: Ticket){
-    this.tickets.push(ticket);
+  addTicket(ticket: Ticket): Observable<Ticket>{
+    const url = `${apiURL}/tickets}`;
+    return this.http.post<Ticket>(url, ticket, httpOptions);
   }
 
-  deleteTicket(ticket: Ticket){
-    this.tickets = this.tickets.filter(t => t.idTicket !== ticket.idTicket);
+  deleteTicket(id:number){
+    const url = `${apiURL}/tickets/${id}`;
+    return this.http.delete(url, httpOptions);
   }
 
-  updateTicket(ticket: Ticket){
-    this.tickets = this.tickets.map(t => t.idTicket === ticket.idTicket ? ticket : t);  
+  updateTicket(ticket: Ticket): Observable<Ticket> {
+    const url = `${apiURL}/tickets}`;
+    return this.http.put<Ticket>(url, ticket, httpOptions);
   }
 
-  getTicket(id:number): Ticket{
-    return this.tickets.find(t => t.idTicket == id)!;
-        
-  }
+
 
 
 }

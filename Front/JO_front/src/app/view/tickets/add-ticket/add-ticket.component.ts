@@ -26,15 +26,26 @@ export class AddTicketComponent implements OnInit{
     ) {}
 
   ngOnInit(): void {
-    this.offers = this.offerService.listOffers();
+    this.offerService.getAllOffers().subscribe((offers) => {
+      this.offers = offers;
+      console.log(offers);
+    });
   }
 
   addTicket() {
-    this.newOffer = this.offerService.readOffer(this.newIdOff); 
-    this.newTicket.typeOffer = this.newOffer;
-    console.log(this.newOffer);
-    this.ticketService.addTicket(this.newTicket);
-    this.message = "Ticket for " + this.newTicket.date + " buy with success";
-    this.router.navigate(['tickets']);
+ 
+  this.newTicket.typeOffer = this.offers.find(off => off.idOffer == this.newIdOff)!;
+  console.log(this.newTicket.typeOffer);
+  this.ticketService.addTicket(this.newTicket).subscribe(ticket => {
+    console.log(ticket);}
+);
+
+    this.message = "Ticket for " + this.newTicket.date + " modify with success";
+    console.log(this.newTicket);
+
+    setTimeout(() => {
+      this.router.navigate(['tickets']);
+    }, 1000); 
   }
+    
 }

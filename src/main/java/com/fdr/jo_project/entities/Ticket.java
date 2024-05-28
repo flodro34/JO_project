@@ -17,13 +17,13 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTicket;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "idOffer", referencedColumnName = "idOffer")
     private Offer offer;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate date;
+    private Date date;
 
     private String tokenTicket;
 
@@ -42,7 +42,7 @@ public class Ticket {
 
     public Ticket(Offer offer,Date date) {
         this.offer = offer;
-        this.date = date.toLocalDate();
+        this.date = date;
     }
 
     @PrePersist

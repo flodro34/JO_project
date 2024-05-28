@@ -26,23 +26,40 @@ export class UpdateTicketComponent {
   ) 
     { }
 
-  ngOnInit(): void {
-    //console.log(this.activatedRoute.snapshot.params['id']);
-    this.offers = this.offerService.listOffers();
-    this.currentTicket = this.ticketService.getTicket(this.activatedRoute.snapshot.params['id']);
-    this.updateOffId = this.currentTicket.typeOffer?.idOffer!;
-    console.log(this.currentTicket);
-  }
+    ngOnInit(): void {
+      this.offerService.getAllOffers().
+      subscribe(offs => {this.offers = offs;
+      console.log(offs);
+      });
+  
+      console.log(this.activatedRoute.snapshot.params['id']);
+      this.ticketService.getTicket(this.activatedRoute.snapshot.params['id']).
+      
+      subscribe( ticket =>{ this.currentTicket = ticket; 
+        this.updateOffId =   this.currentTicket.typeOffer!.idOffer!;
+      
+      } ) ;
+      }
+
 
   
-  updateTicket(){
-    this.currentTicket.typeOffer = this.offerService.readOffer(this.updateOffId);
-    this.ticketService.updateTicket(this.currentTicket);
-    this.message = "Ticket for " + this.currentTicket.date + " modify with success";
-    console.log(this.currentTicket);
-    setTimeout(() => {
-      this.router.navigate(['tickets']);
-    }, 2000); 
+  updateTicket(){ 
+    
+    this.currentTicket.typeOffer = this.offers.find(off => off.idOffer == this.updateOffId)!;
+    this.ticketService.updateTicket(this.currentTicket).subscribe(ticket => {
+      console.log(ticket);}
+ );
+
+      this.message = "Ticket for " + this.currentTicket.date + " modify with success";
+      console.log(this.currentTicket);
+
+      setTimeout(() => {
+        this.router.navigate(['tickets']);
+      }, 1000); 
+    }
   }
 
-}
+
+
+
+

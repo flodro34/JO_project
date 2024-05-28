@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -16,8 +17,7 @@ import java.util.Date;
 public class TicketDTO {
 
     private Long idTicket;
-    private Offer offer;
-    private String typeOffer;
+    private Offer typeOffer;
     private Date date;
     private String tokenTicket;
     private String tokenUser;
