@@ -13,6 +13,9 @@ import { HomeComponent } from './view/home/home.component';
 import { UpdateOfferComponent } from './view/offers/update-offer/update-offer.component';
 import { UpdateTicketComponent } from './view/tickets/update-ticket/update-ticket.component';
 import { HttpClientModule } from '@angular/common/http';
+import { GetTicketsByofferComponent } from './view/tickets/get-tickets-byoffer/get-tickets-byoffer.component';
+import { LoginComponent } from './view/login/login.component';
+import { ForbiddenComponent } from './view/forbidden/forbidden.component';
 
 
 @NgModule({
@@ -24,7 +27,10 @@ import { HttpClientModule } from '@angular/common/http';
     AddTicketComponent,
     HomeComponent,
     UpdateOfferComponent,
-    UpdateTicketComponent
+    UpdateTicketComponent,
+    GetTicketsByofferComponent,
+    LoginComponent,
+    ForbiddenComponent
     
   ],
   imports: [

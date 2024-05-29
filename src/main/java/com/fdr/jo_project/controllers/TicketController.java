@@ -84,8 +84,14 @@ public class TicketController {
     }
 
     @RequestMapping(value = "/userTicket/{idUser}", method = RequestMethod.GET)
-    public List<Ticket> getTicketByUserId(@PathVariable("idUser") Long idUser){
+    public List<Ticket> getTicketsByUserId(@PathVariable("idUser") Long idUser){
         return ticketService.findByUserIdUser(idUser);
     }
+
+    @RequestMapping(value="/tickoff/{idOffer}",method = RequestMethod.GET)
+    public List<Ticket> getTicketsByIdOffer(@PathVariable("idOffer") Long idOffer) {
+        return ticketService.findByOffer(idOffer);
+    }
+
 
 }

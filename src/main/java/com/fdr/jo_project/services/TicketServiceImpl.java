@@ -1,7 +1,10 @@
 package com.fdr.jo_project.services;
 
+import com.fdr.jo_project.dto.OfferDTO;
 import com.fdr.jo_project.dto.TicketDTO;
+import com.fdr.jo_project.entities.Offer;
 import com.fdr.jo_project.entities.Ticket;
+import com.fdr.jo_project.repositories.OfferRepository;
 import com.fdr.jo_project.repositories.TicketRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -20,6 +23,8 @@ public class TicketServiceImpl implements TicketService{
 
     @Autowired
     ModelMapper modelMapper;
+    @Autowired
+    private OfferRepository offerRepository;
 
     @Override
     public TicketDTO saveTicket(TicketDTO t) {
@@ -65,6 +70,12 @@ public class TicketServiceImpl implements TicketService{
     @Override
     public List<Ticket> findByUserIdUser(Long id) {
         return ticketRepository.findByUserIdUser(id);
+    }
+
+    @Override
+    public List<Ticket> findByOffer(Long idOffer) {
+        Offer offer = offerRepository.findById(idOffer).orElse(null);
+        return ticketRepository.findByOffer(offer);
     }
 
     @Override

@@ -1,0 +1,40 @@
+<div class="container">
+    <h2>Liste de mes e-tickets</h2>
+    <div class="form-group row m-md-5">
+        <label class="col-sm-2 col-form-label">Type d'offre</label>
+        <div class="col-sm-10">
+          <select
+            class="form-control form-control-lg"
+            id="idOffer"
+            name="idOffer"
+            [(ngModel)]="idOffer"
+            (change)="getTicketsByOffer()"
+          >
+            <option *ngFor="let off of offers" [value]="off.idOffer">
+              {{ off.type }}
+            </option>
+          </select>
+        </div>
+      </div>
+    <div class="card shadow mb-4">
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Token de l'utilisateur</th>
+              <th>Date du ticket </th>
+              <th>Token du ticket</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let ticket of tickets">
+            <tr>
+              <td>{{ ticket.tokenUser}}</td>
+              <td>{{ ticket.date | date : "dd/MM/yyyy" }}</td>
+              <td>{{ ticket.tokenTicket }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

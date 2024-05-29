@@ -19,7 +19,7 @@ const httpOptions = {
 export class TicketService {
 
   tickets: Ticket[] | undefined;
-
+  apiURLTick = 'http://localhost:8080/JO/api/tickets';
 
   constructor(private http: HttpClient) { 
 
@@ -31,11 +31,14 @@ export class TicketService {
   }
 
   getAllTickets(): Observable<Ticket[]>{ 
-    return this.http.get<Ticket[]>(apiURL);
+    
+    return this.http.get<Ticket[]>(this.apiURLTick);
+    
   }
 
+
   addTicket(ticket: Ticket): Observable<Ticket>{
-    const url = `${apiURL}/tickets}`;
+    const url = `${apiURL}/tickets`;
     return this.http.post<Ticket>(url, ticket, httpOptions);
   }
 
@@ -47,6 +50,11 @@ export class TicketService {
   updateTicket(ticket: Ticket): Observable<Ticket> {
     const url = `${apiURL}/tickets}`;
     return this.http.put<Ticket>(url, ticket, httpOptions);
+  }
+
+  getByOffer(idOffer: number): Observable<Ticket[]>{ 
+    const url = `${apiURL}/tickets/tickoff/${idOffer}`;
+    return this.http.get<Ticket[]>(url);
   }
 
 

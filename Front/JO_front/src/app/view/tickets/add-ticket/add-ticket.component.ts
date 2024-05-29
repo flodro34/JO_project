@@ -44,7 +44,7 @@ export class AddTicketComponent implements OnInit{
     console.log(this.newTicket);
 
     setTimeout(() => {
-      this.router.navigate(['tickets']);
+      this.router.navigate(['/tickets']);
     }, 1000); 
   }
     

@@ -6,13 +6,10 @@
       style="width: 110px"
     />
   </a>
-  <a class="navbar-brand" href="/home">Billetterie des Jeux Olympiques</a>
+  <a class="navbar-brand" routerLink="/home">Billetterie des Jeux Olympiques</a>
   <ul class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link" routerLink="/offers">Les offres</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/add-offer">Ajout d'une offre</a>
+      <a class="nav-link" routerLink="/offers">Les offres proposées</a>
     </li>
     <li class="nav-item dropdown">
       <a
@@ -24,7 +21,7 @@
         Réservations
       </a>
       <div class="dropdown-menu">
-        <a class="dropdown-item" href="/add-ticket">Faire une réservation</a>
+        <a class="dropdown-item" routerLink="/add-ticket">Faire une réservation</a>
         <a class="dropdown-item" routerLink="/tickets">Liste des e-tickets</a>
       </div>
     </li>
@@ -32,15 +29,34 @@
   <ul class="navbar-nav ml-auto">
     <li class="nav-item dropdown">
       <a
+      *ngIf="authService.isAdmin"
+        class="nav-link dropdown-toggle"
+        style="color: white"
+        href="#"
+        id="navbardrop"
+        data-toggle="dropdown"
+      >
+       Administration de l'application
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" routerLink="/add-offer">Ajout d'une offre</a>
+        <a class="dropdown-item" routerLink="/tickoff">Recherche par type d'offre</a>
+      </div>
+    </li>
+  </ul>   
+  <ul class="navbar-nav ml-auto">
+    <li> <a class="nav-link">{{authService.loggedUser}}</a></li>
+    <li class="nav-item dropdown">
+      <a
         class="nav-link dropdown-toggle"
         href="#"
         id="navbardrop"
         data-toggle="dropdown"
       >
-        [username]
+        Connexion
       </a>
       <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">login</a>
+        <a class="dropdown-item" routerLink="/login">login</a>
         <a class="dropdown-item" href="#">logout</a>
         <a class="dropdown-item" href="#">Profile</a>
       </div>

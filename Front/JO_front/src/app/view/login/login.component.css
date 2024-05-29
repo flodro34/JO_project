@@ -1,0 +1,14 @@
+h2 {
+    color: #c14949;
+    text-align: center;
+    padding: 2rem 0;
+  }
+
+  #alert {
+    align-items: center;
+    text-align: center;
+    width: 50%;
+    margin: 0 auto;
+  }
+
+  

@@ -1,6 +1,7 @@
 package com.fdr.jo_project.services;
 
 import com.fdr.jo_project.dto.TicketDTO;
+import com.fdr.jo_project.entities.Offer;
 import com.fdr.jo_project.entities.Ticket;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public interface TicketService {
 
     List<Ticket> findByTokenUser(String tokenUser);
     List<Ticket> findByUserIdUser(Long id);
+    List<Ticket> findByOffer(Long idOffer);
 
     TicketDTO convertEntityToDTO(Ticket t);
     Ticket convertDTOToEntity(TicketDTO ticketDTO);
