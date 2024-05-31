@@ -5,11 +5,14 @@ import com.fdr.jo_project.dto.TransactionDTO;
 import com.fdr.jo_project.entities.Offer;
 import com.fdr.jo_project.entities.Transaction;
 import com.fdr.jo_project.repositories.TransactionRepository;
+import com.fdr.jo_project.util.CustomTokenUtil;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,8 +27,19 @@ public class TransactionServiceImpl implements TransactionService{
 
     @Override
     public TransactionDTO saveTransaction(TransactionDTO t) {
+        t.setDateTransaction(Date.valueOf(LocalDate.now()));
         return convertEntityToDTO(transactionRepository.save(convertDTOToEntity(t)));
     }
+//    @Override
+//    public Transaction saveTransaction(Transaction t){
+//        String token = CustomTokenUtil.generateCustomToken();
+//        Transaction transaction = null;
+//
+//        transaction.setTokenTransaction(token);
+//        transaction.setDateTransaction(Date.valueOf(LocalDate.now()));
+//        return transactionRepository.save(transaction);
+//    }
+
     @Override
     public TransactionDTO updateTransaction(TransactionDTO t) {
         return convertEntityToDTO(transactionRepository.save(convertDTOToEntity(t)));

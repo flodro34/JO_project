@@ -17,4 +17,6 @@ public class JoProjectApplication {
     public ModelMapper modelMapper(){
         return new ModelMapper();
     }
+
+
 }

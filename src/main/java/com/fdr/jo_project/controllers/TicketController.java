@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/tickets")
-@CrossOrigin
+@CrossOrigin("*")
 public class TicketController {
 
     @Autowired
@@ -57,38 +57,44 @@ public class TicketController {
 //        return ResponseEntity.ok(tickets);
 //    }
 
-    @RequestMapping(method = RequestMethod.GET)
+    //@RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public List<TicketDTO> getAllTickets(){
         return ticketService.getAllTickets();
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    //@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping("/{id}")
     public TicketDTO getTicketById(@PathVariable("id") Long id){
         return ticketService.getTicket(id);
     }
 
-    //Méthode pour test
-    @RequestMapping(method = RequestMethod.POST)
+    //@RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public TicketDTO createTicket(@RequestBody TicketDTO ticketDTO){
         return ticketService.saveTicket(ticketDTO);
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
+    //@RequestMapping(method = RequestMethod.PUT)
+    @PutMapping
     public TicketDTO updateTicket(@RequestBody TicketDTO ticketDTO){
         return ticketService.updateTicket(ticketDTO);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    //@RequestMapping(value="/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping("/{id}")
     public void deleteTicket(@PathVariable("id") Long id){
         ticketService.deleteTicketById(id);
     }
 
-    @RequestMapping(value = "/userTicket/{idUser}", method = RequestMethod.GET)
+    //@RequestMapping(value = "/userTicket/{idUser}", method = RequestMethod.GET)
+    @GetMapping("/userTicket/{idUser}")
     public List<Ticket> getTicketsByUserId(@PathVariable("idUser") Long idUser){
         return ticketService.findByUserIdUser(idUser);
     }
 
-    @RequestMapping(value="/tickoff/{idOffer}",method = RequestMethod.GET)
+    //@RequestMapping(value="/tickoff/{idOffer}",method = RequestMethod.GET)
+    @GetMapping("/tickoff/{idOffer}")
     public List<Ticket> getTicketsByIdOffer(@PathVariable("idOffer") Long idOffer) {
         return ticketService.findByOffer(idOffer);
     }

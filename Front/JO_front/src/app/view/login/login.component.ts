@@ -11,22 +11,40 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit{
 
   user = new User();
-  error = 0;
-  message: string = "Login ou mot de passe incorrect";
+  erreur: number = 0;
+  message: string = "Login ou mot de passe incorrect ...";
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router) { }
 
   ngOnInit(): void {
     
   }
 
-  onLogin(){
+  // onLoggedin(){
+  //   console.log(this.user);
+  //   this.authService.login(this.user).subscribe({
+  //     next:(data)=> {
+  //       let jwtToken = data.headers.get('Authorization')!;
+  //       this.authService.saveToken(jwtToken);
+  //       this.router.navigate(['/']);
+  //     },error:(err: any )=>{
+  //       this.error = 1; 
+  //     }
+  //   });
+  // };
+
+  onLoggedin()
+  {
     console.log(this.user);
-    let isValidUser = this.authService.SignIn(this.user);
-    if(isValidUser){
-      this.router.navigate(['home']);
-    }else{
-      this.error = 1; 
-    }
+    let isValidUser: Boolean = this.authService.SignIn(this.user);
+    if (isValidUser)
+        this.router.navigate(['/']);
+    else
+       this.erreur=1;
+
   }
+
+
 }

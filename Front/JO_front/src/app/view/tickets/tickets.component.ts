@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TicketService } from '../../services/ticket.service';
 import { Ticket } from '../../model/ticket.model';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-tickets',
@@ -11,7 +12,9 @@ export class TicketsComponent implements OnInit{
 
   tickets?: Ticket[];
 
-  constructor(private ticketService: TicketService) {
+  constructor(private ticketService: TicketService,
+              //public authService: AuthService
+  ) {
     
   }
 

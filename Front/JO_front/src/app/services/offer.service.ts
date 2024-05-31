@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Offer } from '../model/offer.model';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
+// import { AuthService } from './auth.service';
 
 
 const httpOptions = {
@@ -18,7 +19,9 @@ export class OfferService {
   apiURL = 'http://localhost:8080/JO/api/offers';
   offers? : Offer[] ;
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient, 
+    // private authService: AuthService
+  ) { 
 
   }
 
@@ -28,6 +31,9 @@ export class OfferService {
   }
 
   getAllOffers(): Observable<Offer[]>{
+    // let jwt = this.authService.getToken();
+    // jwt = "Bearer " + jwt;
+    // let httpHeaders = new HttpHeaders().set('Authorization', jwt);
     return this.http.get<Offer[]>(this.apiURL);
   }
 

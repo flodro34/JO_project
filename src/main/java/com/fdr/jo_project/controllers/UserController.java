@@ -3,8 +3,12 @@ package com.fdr.jo_project.controllers;
 import com.fdr.jo_project.dto.UserDTO;
 import com.fdr.jo_project.entities.Ticket;
 import com.fdr.jo_project.entities.User;
+
 import com.fdr.jo_project.services.UserService;
+//import com.fdr.jo_project.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +20,12 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
+
+//    @Autowired
+//    private JwtTokenUtil jwtTokenUtil;
 
     @RequestMapping(method = RequestMethod.GET)
     public List<UserDTO> getAllUsers(){
@@ -33,6 +43,11 @@ public class UserController {
         return userService.saveUser(userDTO);
     }
 
+//    @PostMapping("/register")
+//    public User registerUser(@RequestBody User user) {
+//        return userService.saveWithToken(user);
+//    }
+
     @RequestMapping(method = RequestMethod.PUT)
     public UserDTO updateUser(@RequestBody UserDTO userDTO){
         return userService.updateUser(userDTO);
@@ -42,4 +57,21 @@ public class UserController {
     public void deleteUser(@PathVariable("id") Long id){
         userService.deleteUserById(id);
     }
+
+//   @RequestMapping(value ="/register",method = RequestMethod.POST)
+//    public ResponseEntity<?> registerUser(@RequestBody User user) {
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//
+//        // Save the user to the database
+//        userService.save(user);
+//
+//        // Generate token
+//        final String token = jwtTokenUtil.generateToken(user.getUsername());
+//
+//        // Update the user's tokenUser field
+//        user.setTokenUser(token);
+//       userService.save(user);
+//
+//        return ResponseEntity.ok(new JwtResponse(token, user.getUsername()));
+//    }
 }

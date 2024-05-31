@@ -5,12 +5,13 @@ import com.fdr.jo_project.entities.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public interface UserService {
     UserDTO saveUser(UserDTO userDTO);
     UserDTO updateUser(UserDTO userDTO);
+
+    User saveWithToken(User user);
 
     UserDTO getUser (Long id);
     List<UserDTO> getAllUsers();
@@ -20,6 +21,15 @@ public interface UserService {
 
     boolean isValidTokenUser(String tokenUser);
 
+
+    User findByUsername(String username);
+
+    //User registerUser(RegistrationRequest request);
+    public void sendEmailUser(User u, String code);
+    public User validateToken(String code);
+
     UserDTO convertEntityToDTO(User u);
     User convertDTOToEntity(UserDTO userDTO);
+
+
 }

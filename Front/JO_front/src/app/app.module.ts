@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 // import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { TicketsComponent } from './view/tickets/tickets.component';
@@ -16,6 +16,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { GetTicketsByofferComponent } from './view/tickets/get-tickets-byoffer/get-tickets-byoffer.component';
 import { LoginComponent } from './view/login/login.component';
 import { ForbiddenComponent } from './view/forbidden/forbidden.component';
+import { RegisterComponent } from './view/register/register.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -30,14 +33,16 @@ import { ForbiddenComponent } from './view/forbidden/forbidden.component';
     UpdateTicketComponent,
     GetTicketsByofferComponent,
     LoginComponent,
-    ForbiddenComponent
+    ForbiddenComponent,
+    RegisterComponent
     
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

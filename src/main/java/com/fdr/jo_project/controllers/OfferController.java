@@ -4,13 +4,14 @@ import com.fdr.jo_project.dto.OfferDTO;
 import com.fdr.jo_project.entities.Offer;
 import com.fdr.jo_project.services.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/offers")
-@CrossOrigin("")
+@CrossOrigin("*")
 public class OfferController {
 
     @Autowired
@@ -28,7 +29,7 @@ public class OfferController {
 
     //Méthode pour test
     @RequestMapping(method = RequestMethod.POST)
-    public OfferDTO createTicket(@RequestBody OfferDTO offerDTO){
+    public OfferDTO createOffer(@RequestBody OfferDTO offerDTO){
         return offerService.saveOffer(offerDTO);
     }
 

@@ -11,6 +11,7 @@ import { GetTicketsByofferComponent } from './view/tickets/get-tickets-byoffer/g
 import { LoginComponent } from './view/login/login.component';
 import { AdminGuard } from './gards/admin.guard';
 import { ForbiddenComponent } from './view/forbidden/forbidden.component';
+import { RegisterComponent } from './view/register/register.component';
 
 
 
@@ -26,6 +27,7 @@ const routes: Routes = [
 
   {path: "home", component : HomeComponent},
   {path: "login", component : LoginComponent},
+  {path: "register", component : RegisterComponent},
   {path: "app-forbidden", component : ForbiddenComponent},
   {path: "", redirectTo: "home", pathMatch: "full"}
 ];

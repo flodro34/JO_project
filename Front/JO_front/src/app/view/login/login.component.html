@@ -1,17 +1,17 @@
 <div class="container">
   <h2>Connexion</h2>
-  <div id="alert" *ngIf="error==1" class="alert alert-danger" role="alert">
+  <div id="alert" *ngIf="erreur == 1" class="alert alert-danger" role="alert">
     {{ message }}
-</div>
+  </div>
   <div class="card shadow m-4">
-    <form (ngSubmit)="onLogin()">
+    <form (ngSubmit)="onLoggedin()">
       <div class="form-group row m-md-5">
-        <label class="col-sm-2 col-form-label">Identifiant e-mail </label>
+        <label class="col-sm-2 col-form-label">Nom utilisateur </label>
         <div class="col-sm-10">
           <input
             type="text"
-            [(ngModel)]="user.email"
-            (ngModelChange)="user.email = $event"
+            [(ngModel)]="user.username"
+            (ngModelChange)="user.username = $event"
             name="email"
             class="form-control"
           />
@@ -29,12 +29,20 @@
           />
         </div>
       </div>
-
-      <div class="p-5">
+      <div class="p-5 ">
         <button type="submit" class="btn btn-outline-success">Connexion</button>
-        <div>
-        </div>
       </div>
     </form>
+    <div class="p-3 m-auto">
+      <p>
+        Pas encore de compte ??
+        <a
+          class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+          [routerLink]="['/register']"
+        >
+          S'inscrire
+        </a>
+      </p>
+    </div>
   </div>
 </div>
