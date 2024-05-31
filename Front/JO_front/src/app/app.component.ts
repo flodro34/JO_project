@@ -14,17 +14,32 @@ export class AppComponent implements OnInit{
     public router: Router
   ) { }
 
- ngOnInit(): void {
-   
-  let isLoggedIn: any ;
-  let loggedUser: any;
-  isLoggedIn = localStorage.getItem('isLoggedIn');
-  loggedUser = localStorage.getItem('loggedUser');
+loggedUser: any;
+isloggedIn: any;
+roles: any;
 
-  if(isLoggedIn!="true" || !loggedUser)
+  logout(){
+    this.loggedUser = undefined!;
+    this.isloggedIn = false;
+    this.roles = undefined!
+    localStorage.removeItem('loggedUser');
+    localStorage.setItem('isloggedIn', String(this.isloggedIn));
+    this.router.navigate(['/home']);
+  }
+
+
+
+ ngOnInit(): void {
+
+  this.isloggedIn = localStorage.getItem('isLoggedIn');
+  this.loggedUser = localStorage.getItem('loggedUser');
+
+  if(this.isloggedIn!="true" || !this.loggedUser)
     this.router.navigate(['/login']);
   else
-    this.authService.setLoggedUserFromLocalStorage(loggedUser);
+    this.authService.setLoggedUserFromLocalStorage(this.loggedUser);
 
  }
+
+
 }

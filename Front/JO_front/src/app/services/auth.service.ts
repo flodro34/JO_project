@@ -8,13 +8,13 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AuthService {
 
-    users:User[] = [{"idUser":1,"username":"Bob","lastname":"fett","firstname":"bobba","tokenUser":"myToken", "email": "bobba@gmail.com", "password": "123", "roles":['USER'], "enabled":true},
-                    {"idUser":2,"username":"Ben","lastname":"kenobi","firstname":"obiwan","tokenUser":"TokTok", "email": "obiwan@gmail.com", "password": "123", "roles":['ADMIN'], "enabled":true},
-    ];
+    // users:User[] = [{"idUser":1,"username":"Bob","lastname":"fett","firstname":"bobba","tokenUser":"myToken", "email": "bobba@gmail.com", "password": "123", "roles":['USER'], "enabled":true},
+    //                 {"idUser":2,"username":"Ben","lastname":"kenobi","firstname":"obiwan","tokenUser":"TokTok", "email": "obiwan@gmail.com", "password": "123", "roles":['ADMIN'], "enabled":true},
+    // ];
 
     //private helper = new JwtHelperService();
 
-    //users!: User[];
+    users!: User[];
 
     //baseURL: string = 'http://localhost:8081/users';
     apiURL: string = 'http://localhost:8080/JO/api/users';
@@ -63,48 +63,48 @@ export class AuthService {
     //     this.loggedUser = decodedToken.sub;
     // }
 
-    SignIn(user: User): Boolean {
-        let validUser: Boolean = false;
-        this.users.forEach((curUser) => {
-          if (user.username == curUser.username && user.password == curUser.password) {
-            validUser = true;
-            this.loggedUser = curUser.username;
-            this.isloggedIn = true;
-            this.roles = curUser.roles;
-            localStorage.setItem('loggedUser', this.loggedUser);
-            localStorage.setItem('isloggedIn', String(this.isloggedIn));
-          }
-        });
-        return validUser;
-      }
+    // SignIn(user: User): Boolean {
+    //     let validUser: Boolean = false;
+    //     this.users.forEach((curUser) => {
+    //       if (user.username == curUser.username && user.password == curUser.password) {
+    //         validUser = true;
+    //         this.loggedUser = curUser.username;
+    //         this.isloggedIn = true;
+    //         this.roles = curUser.roles;
+    //         localStorage.setItem('loggedUser', this.loggedUser);
+    //         localStorage.setItem('isloggedIn', String(this.isloggedIn));
+    //       }
+    //     });
+    //     return validUser;
+    //   }
 
-    isAdmin():Boolean{ 
-        if (!this.roles) //this.roles== undefiened 
-            return false; return (this.roles.indexOf('ADMIN') >-1);
-        }
+    // isAdmin():Boolean{ 
+    //     if (!this.roles) //this.roles== undefiened 
+    //         return false; return (this.roles.indexOf('ADMIN') >-1);
+    //     }
 
-    logout(){
-        this.loggedUser = undefined!;
-        this.isloggedIn = false;
-        this.roles = undefined!
-        localStorage.removeItem('jwt');
-        localStorage.setItem('isloggedIn', String(this.isloggedIn));
-        this.router.navigate(['/login']);
-    }
+    // logout(){
+    //     this.loggedUser = undefined!;
+    //     this.isloggedIn = false;
+    //     this.roles = undefined!
+    //     localStorage.removeItem('loggedUser');
+    //     localStorage.setItem('isloggedIn', String(this.isloggedIn));
+    //     this.router.navigate(['/home']);
+    // }
 
-    setLoggedUserFromLocalStorage(login: string) {
-        this.loggedUser = login;
-        this.isloggedIn = true;
-        this.getUserRoles(login);
-    }
+    // setLoggedUserFromLocalStorage(login: string) {
+    //     this.loggedUser = login;
+    //     this.isloggedIn = true;
+    //     this.getUserRoles(login);
+    // }
 
-    getUserRoles(username: string){
-        this.users.forEach((curUser)=>{
-            if(curUser.username == username){
-                this.roles = curUser.roles;
-            }
-        });
-    }
+    // getUserRoles(username: string){
+    //     this.users.forEach((curUser)=>{
+    //         if(curUser.username == username){
+    //             this.roles = curUser.roles;
+    //         }
+    //     });
+    // }
     
 
     
@@ -122,10 +122,10 @@ export class AuthService {
     // }
     
     
-    registerUser(user :User){
-        console.log(user);
-        //return this.http.post<User>(this.apiURL+'/register', user,{observe:'response'});
-    }
+    // registerUser(user :User){
+    //     console.log(user);
+    //     //return this.http.post<User>(this.apiURL+'/register', user,{observe:'response'});
+    // }
     
     
     // validateEmail(code : string){

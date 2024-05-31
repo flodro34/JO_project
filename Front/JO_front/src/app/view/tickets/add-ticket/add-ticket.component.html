@@ -1,6 +1,6 @@
 <div class="container">
   <h2>Acheter votre e-ticket</h2>
-  <div class="card shadow m-4">
+  <div class="card shadow m-4 ">
     <form (ngSubmit)="addTicket()">
       <div hidden class="form-group row m-md-5">
         <label class="col-sm-2 col-form-label">ID ticket</label>
@@ -42,7 +42,7 @@
           />
         </div>
       </div>
-      <div class="form-group row m-md-5">
+      <div hidden class="form-group row m-md-5">
         <label class="col-sm-2 col-form-label">Token du ticket</label>
         <div class="col-sm-10">
           <input
@@ -54,7 +54,7 @@
           />
         </div>
       </div>
-      <div class="form-group row m-md-5">
+      <div hidden class="form-group row m-md-5">
         <label class="col-sm-2 col-form-label">Token de l'utilisateur</label>
         <div class="col-sm-10">
           <input
@@ -66,7 +66,7 @@
           />
         </div>
       </div>
-      <div class="form-group row m-md-5">
+      <div hidden class="form-group row m-md-5">
         <label class="col-sm-2 col-form-label">Token de la transaction</label>
         <div class="col-sm-10">
           <input

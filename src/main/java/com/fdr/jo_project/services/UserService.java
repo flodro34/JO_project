@@ -21,6 +21,8 @@ public interface UserService {
 
     boolean isValidTokenUser(String tokenUser);
 
+    User authenticate(String username, String password);
+
 
     User findByUsername(String username);
 

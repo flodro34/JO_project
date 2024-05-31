@@ -6,7 +6,7 @@ export class User {
     email!: string;
     password!: string;
     tokenUser!: string;
-    enabled!: boolean;
-    roles!: string[];
+    isAdmin?: boolean = false;
+    enabled?: boolean = false;
 
 }

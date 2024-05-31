@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../model/user.model';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -15,13 +16,29 @@ export class LoginComponent implements OnInit{
   message: string = "Login ou mot de passe incorrect ...";
 
   constructor(
-    private authService: AuthService,
+    private userService: UserService,
+    //private authService: AuthService,
     private router: Router) { }
 
   ngOnInit(): void {
     
   }
 
+  onLoggedin() {
+    this.userService.SignIn(this.user).subscribe(
+      (isValidUser) => {
+        if (isValidUser) {
+          this.router.navigate(['/']); // Redirigez vers la page d'accueil après la connexion réussie
+        } else {
+          this.message = 'Invalid username or password';
+        }
+      },
+      (error) => {
+        this.message = 'An error occurred during login';
+        console.error(error);
+      }
+    );
+  }
   // onLoggedin(){
   //   console.log(this.user);
   //   this.authService.login(this.user).subscribe({
@@ -35,16 +52,16 @@ export class LoginComponent implements OnInit{
   //   });
   // };
 
-  onLoggedin()
-  {
-    console.log(this.user);
-    let isValidUser: Boolean = this.authService.SignIn(this.user);
-    if (isValidUser)
-        this.router.navigate(['/']);
-    else
-       this.erreur=1;
+  // onLoggedin()
+  // {
+  //   console.log(this.user);
+  //   let isValidUser: Boolean = this.authService.SignIn(this.user);
+  //   if (isValidUser)
+  //       this.router.navigate(['/']);
+  //   else
+  //      this.erreur=1;
 
-  }
+  // }
 
 
 }

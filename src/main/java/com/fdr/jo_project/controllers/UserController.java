@@ -58,6 +58,16 @@ public class UserController {
         userService.deleteUserById(id);
     }
 
+    @PostMapping("/authenticate")
+    public ResponseEntity<?> authenticateUser(@RequestBody User user) {
+        User authenticatedUser = userService.authenticate(user.getUsername(), user.getPassword());
+        if (authenticatedUser != null) {
+            return ResponseEntity.ok(authenticatedUser);
+        } else {
+            return ResponseEntity.status(401).body("Invalid username or password");
+        }
+    }
+
 //   @RequestMapping(value ="/register",method = RequestMethod.POST)
 //    public ResponseEntity<?> registerUser(@RequestBody User user) {
 //        user.setPassword(passwordEncoder.encode(user.getPassword()));

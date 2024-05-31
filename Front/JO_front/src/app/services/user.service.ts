@@ -18,7 +18,9 @@ const httpOptions = {
 export class UserService {
 
   apiURL = 'http://localhost:8080/JO/api/users';
-  user? : User[] ;
+  loggedUser: string | null = null;
+  isloggedIn: boolean = false;
+  roles: string[] = [];
 
   constructor(private http: HttpClient) { }
 
@@ -46,7 +48,37 @@ export class UserService {
     return this.http.put<User>(this.apiURL, user, httpOptions);
   }
 
+  SignIn(user: User): Observable<boolean> {
+    return new Observable<boolean>(observer => {
+      this.http.post<User>(`${this.apiURL}/authenticate`, user, httpOptions).subscribe(
+        (authenticatedUser) => {
+          if (authenticatedUser) {
+            this.loggedUser = authenticatedUser.username;
+            this.isloggedIn = true;
+            
+            localStorage.setItem('loggedUser', this.loggedUser);
+            localStorage.setItem('isloggedIn', String(this.isloggedIn));
+            observer.next(true);
+          } else {
+            observer.next(false);
+          }
+          observer.complete();
+        },
+        error => {
+          observer.next(false);
+          observer.complete();
+        }
+      );
+    });
+  }
 
+  logout() {
+    localStorage.removeItem('loggedUser');
+    localStorage.removeItem('isloggedIn');
+    this.loggedUser = null;
+    this.isloggedIn = false;
+    this.roles = [];
+  }
 
 
 

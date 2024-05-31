@@ -98,6 +98,10 @@ public class TicketController {
     public List<Ticket> getTicketsByIdOffer(@PathVariable("idOffer") Long idOffer) {
         return ticketService.findByOffer(idOffer);
     }
+    @GetMapping("/user/{tokenUser}")
+    public List<Ticket> getTicketsByTokenUser(@PathVariable("tokenUser") String tokenUser) {
+        return ticketService.findByTokenUser(tokenUser);
+    }
 
 
 }

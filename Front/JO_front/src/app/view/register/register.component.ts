@@ -4,36 +4,40 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { UserService } from '../../services/user.service';
+import { CustomTokenUtil } from '../../Utils/custom-token-util';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
-export class RegisterComponent implements OnInit{
 
-  public user = new User();
 
-  confirmPassword?: string = "";
-  myForm!: FormGroup;
-  
-  err!:any;
-  loading : boolean = false;
+export class RegisterComponent {
 
-  constructor(private fb: FormBuilder, private authService : AuthService, 
-    private router:Router, private toastr: ToastrService) {}
+  user: User = new User();
+  message: string = '';
 
-  ngOnInit(): void {
- 
-    this.myForm = this.fb.group({
-      'firstname': ['', Validators.required],
-      'email': ['', [Validators.required, Validators.email]],
-      'password': ['', [Validators.required, Validators.minLength(6)]],
-      'confirmPassword': ['', [Validators.required, Validators.minLength(6)]]
-    });
+  constructor(private userService: UserService) {}
+
+  registerUser() {
+
+    // Generate token before sending data to backend
+    this.user.tokenUser = CustomTokenUtil.generateCustomToken();
+
+    this.userService.addUser(this.user).subscribe(
+      response => {
+        this.message = 'Inscription réussie !!';
+      },
+      error => {
+        this.message = "Une erreur est surnenue lors de l\'enregistrement de l\'utilisateur";
+        console.error(error);
+      }
+    );
   }
 
-  onRegister(){
+  //onRegister(){
     
   //   console.log(this.user);
 
@@ -52,8 +56,8 @@ export class RegisterComponent implements OnInit{
   //         }
   //       }
   //   });
- }
-
-
 }
+
+
+
 

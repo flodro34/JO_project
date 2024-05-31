@@ -41,15 +41,21 @@ export class TicketService {
     // let jwt = this.authService.getToken();
     // jwt = "Bearer " + jwt;
     // let httpHeaders = new HttpHeaders().set('Authorization', jwt);
-    return this.http.get<Ticket[]>(this.apiURLTick);
+    const loggedUserToken = localStorage.getItem('loggedUserToken'); // Assurez-vous que le token de l'utilisateur connecté est stocké sous cette clé
+    const url = `${this.apiURLTick}/user/${loggedUserToken}`;
+    return this.http.get<Ticket[]>(url);
     
   }
 
 
   addTicket(ticket: Ticket): Observable<Ticket>{
-    
+
+    const loggedUserToken = localStorage.getItem('loggedUserToken'); 
+    ticket.tokenUser = loggedUserToken || '';
+
+
     // Generate tokens
-        const tokenUser = CustomTokenUtil.generateCustomToken();
+        //const tokenUser = CustomTokenUtil.generateCustomToken();
         const tokenTransaction = CustomTokenUtil.generateCustomToken();
 
     // Create transaction
@@ -57,11 +63,12 @@ export class TicketService {
     transaction.tokenTransaction = tokenTransaction;
     transaction.date = new Date();
     transaction.amount = Number(ticket.typeOffer.price);
+    
     return new Observable(observer => {
       this.transactionService.addTransaction(transaction).subscribe(savedTransaction => {
 
         // Update ticket with tokens
-        ticket.tokenUser = tokenUser;
+        //ticket.tokenUser = tokenUser;
         ticket.tokenTransaction = savedTransaction.tokenTransaction;
         ticket.tokenTicket = `${ticket.tokenUser}-${ticket.tokenTransaction}`;
 
