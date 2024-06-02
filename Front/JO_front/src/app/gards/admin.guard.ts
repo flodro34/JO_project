@@ -1,24 +1,24 @@
 
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { Injectable } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+// import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+// import { Injectable } from '@angular/core';
+// import { AuthService } from '../services/auth.service';
 
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AdminGuard implements CanActivate {
+// @Injectable({
+//   providedIn: 'root'
+// })
+// export class AdminGuard implements CanActivate {
 
-  constructor(private authService: AuthService, private router: Router) { }
+//   constructor(private authService: AuthService, private router: Router) { }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (this.authService.isAdmin()) {
-      return true;
-    } else {
-      this.router.navigate(['/app-forbidden']);
-      return false;
-    }
-  }
-}
+//   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+//     if (this.authService.isAdmin()) {
+//       return true;
+//     } else {
+//       this.router.navigate(['/app-forbidden']);
+//       return false;
+//     }
+//   }
+// }
 
-//Todo: CanActivate --> deprecated --> change
+// //Todo: CanActivate --> deprecated --> change

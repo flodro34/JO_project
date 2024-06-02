@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { Ticket } from '../model/ticket.model';
 // import { DATE_PIPE_DEFAULT_OPTIONS, DATE_PIPE_DEFAULT_TIMEZONE, DatePipe, getLocaleDateTimeFormat } from '@angular/common';
 // import { Offer } from '../model/offer.model';
-import { Observable } from 'rxjs';
+import { Observable, catchError, of, switchMap } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { apiURL } from '../config';
 import { CustomTokenUtil } from '../Utils/custom-token-util';
 import { Transaction } from '../model/transaction.model';
 import { TransactionService } from './transaction.service';
+import { UserService } from './user.service';
 // import { AuthService } from './auth.service';
 
 
@@ -27,7 +28,8 @@ export class TicketService {
   
 
   constructor(private http: HttpClient, 
-    private transactionService: TransactionService
+    private transactionService: TransactionService,
+    private userService: UserService
   ) { 
 
    }
@@ -41,48 +43,90 @@ export class TicketService {
     // let jwt = this.authService.getToken();
     // jwt = "Bearer " + jwt;
     // let httpHeaders = new HttpHeaders().set('Authorization', jwt);
-    const loggedUserToken = localStorage.getItem('loggedUserToken'); // Assurez-vous que le token de l'utilisateur connecté est stocké sous cette clé
-    const url = `${this.apiURLTick}/user/${loggedUserToken}`;
-    return this.http.get<Ticket[]>(url);
+
+    return this.http.get<Ticket[]>(this.apiURLTick);
     
   }
+  
 
 
-  addTicket(ticket: Ticket): Observable<Ticket>{
+  // addTicket(ticket: Ticket): Observable<Ticket>{
 
-    const loggedUserToken = localStorage.getItem('loggedUserToken'); 
-    ticket.tokenUser = loggedUserToken || '';
+  //   const loggedUser = localStorage.getItem('loggedUser'); 
+  //   const userId = localStorage.getItem('userId');
 
 
-    // Generate tokens
-        //const tokenUser = CustomTokenUtil.generateCustomToken();
+  //   //ticket.tokenUser = currentUserUser.tokenUser;
+
+
+
+
+  //   // Generate tokens
+  //       //const tokenUser = CustomTokenUtil.generateCustomToken();
+  //       const tokenTransaction = CustomTokenUtil.generateCustomToken();
+
+  //   // Create transaction
+  //   const transaction = new Transaction();
+  //   transaction.tokenTransaction = tokenTransaction;
+  //   transaction.date = new Date();
+  //   transaction.amount = Number(ticket.typeOffer.price);
+    
+  //   return new Observable(observer => {
+  //     this.transactionService.addTransaction(transaction).subscribe(savedTransaction => {
+
+  //       // Update ticket with tokens
+  //       //ticket.tokenUser = tokenUser;
+  //       ticket.tokenTransaction = savedTransaction.tokenTransaction;
+  //       ticket.tokenTicket = `${ticket.tokenUser}-${ticket.tokenTransaction}`;
+
+  //       // Save ticket
+  //       this.http.post<Ticket>(this.apiURLTick, ticket, httpOptions).subscribe(savedTicket => {
+  //         observer.next(savedTicket);
+  //         observer.complete();
+  //       }, error => {
+  //         observer.error(error);
+  //       });
+  //     }, error => {
+  //       observer.error(error);
+  //     });
+  //   });
+  // }
+
+  getAllTicketsByUser(): Observable<Ticket[]> {
+    const loggedUserId = localStorage.getItem('userId');
+    const url = `${this.apiURLTick}/user/${loggedUserId}`;
+    return this.http.get<Ticket[]>(url);
+  }
+
+  addTicket(ticket: Ticket): Observable<Ticket> {
+    return this.userService.getUserConnected().pipe(
+      switchMap(user => {
+        if (!user) {
+          throw new Error('User is null');
+        }
+        ticket.tokenUser = user.tokenUser;
+
         const tokenTransaction = CustomTokenUtil.generateCustomToken();
 
-    // Create transaction
-    const transaction = new Transaction();
-    transaction.tokenTransaction = tokenTransaction;
-    transaction.date = new Date();
-    transaction.amount = Number(ticket.typeOffer.price);
-    
-    return new Observable(observer => {
-      this.transactionService.addTransaction(transaction).subscribe(savedTransaction => {
+        const transaction = new Transaction();
+        transaction.tokenTransaction = tokenTransaction;
+        transaction.date = new Date();
+        transaction.amount = Number(ticket.typeOffer.price);
 
-        // Update ticket with tokens
-        //ticket.tokenUser = tokenUser;
-        ticket.tokenTransaction = savedTransaction.tokenTransaction;
-        ticket.tokenTicket = `${ticket.tokenUser}-${ticket.tokenTransaction}`;
+        return this.transactionService.addTransaction(transaction).pipe(
+          switchMap(savedTransaction => {
+            ticket.tokenTransaction = savedTransaction.tokenTransaction;
+            ticket.tokenTicket = `${ticket.tokenUser}-${ticket.tokenTransaction}`;
 
-        // Save ticket
-        this.http.post<Ticket>(this.apiURLTick, ticket, httpOptions).subscribe(savedTicket => {
-          observer.next(savedTicket);
-          observer.complete();
-        }, error => {
-          observer.error(error);
-        });
-      }, error => {
-        observer.error(error);
-      });
-    });
+            return this.http.post<Ticket>(this.apiURLTick, ticket, httpOptions);
+          })
+        );
+      }),
+      catchError(error => {
+        console.error('Error creating ticket', error);
+        return of({} as Ticket);
+      })
+    );
   }
 
   deleteTicket(id:number){
@@ -97,6 +141,11 @@ export class TicketService {
 
   getByOffer(idOffer: number): Observable<Ticket[]>{ 
     const url = `${apiURL}/tickets/tickoff/${idOffer}`;
+    return this.http.get<Ticket[]>(url);
+  }
+
+  getByUser(idUser: number): Observable<Ticket[]>{ 
+    const url = `${apiURL}/tickets/user/${idUser}`;
     return this.http.get<Ticket[]>(url);
   }
 

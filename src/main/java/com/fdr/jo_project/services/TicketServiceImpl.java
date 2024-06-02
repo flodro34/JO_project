@@ -4,11 +4,14 @@ import com.fdr.jo_project.dto.OfferDTO;
 import com.fdr.jo_project.dto.TicketDTO;
 import com.fdr.jo_project.entities.Offer;
 import com.fdr.jo_project.entities.Ticket;
+import com.fdr.jo_project.entities.User;
 import com.fdr.jo_project.repositories.OfferRepository;
 import com.fdr.jo_project.repositories.TicketRepository;
+import com.fdr.jo_project.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +28,8 @@ public class TicketServiceImpl implements TicketService{
     ModelMapper modelMapper;
     @Autowired
     private OfferRepository offerRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public TicketDTO saveTicket(TicketDTO t) {
@@ -68,8 +73,9 @@ public class TicketServiceImpl implements TicketService{
     }
 
     @Override
-    public List<Ticket> findByUserIdUser(Long id) {
-        return ticketRepository.findByUserIdUser(id);
+    public List<Ticket> findByUser(Long idUser) {
+        User user = userRepository.findById(idUser).orElse(null);
+        return ticketRepository.findByUser(user);
     }
 
     @Override

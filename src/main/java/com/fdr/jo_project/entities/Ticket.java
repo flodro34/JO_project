@@ -32,7 +32,7 @@ public class Ticket {
     private String tokenTransaction;
 
     @ManyToOne
-    @JoinColumn(name = "user_tokenUser", referencedColumnName = "tokenUser")
+    @JoinColumn(name = "idUser", referencedColumnName = "idUser")
     @JsonIgnore
     private User user;
 

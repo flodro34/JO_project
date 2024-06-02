@@ -18,7 +18,7 @@ public interface TicketService {
     void deleteTicketById(Long id);
 
     List<Ticket> findByTokenUser(String tokenUser);
-    List<Ticket> findByUserIdUser(Long id);
+    List<Ticket> findByUser(Long idUser);
     List<Ticket> findByOffer(Long idOffer);
 
     TicketDTO convertEntityToDTO(Ticket t);

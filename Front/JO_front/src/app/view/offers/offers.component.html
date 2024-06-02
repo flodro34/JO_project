@@ -7,7 +7,7 @@
           <tr>
             <th>Type d'offre</th>
             <th>Prix</th>
-            <th>Actions</th>
+            <th *ngIf="userService.isAdmin">Actions</th>
           </tr>
         </thead>
         <tbody *ngFor="let offer of offers">
@@ -16,10 +16,13 @@
             <td>{{ offer.price }}</td>
             <td>
               <a
+                *ngIf="userService.isAdmin"
                 class="btn btn-outline-warning"
                 [routerLink]="['/update-offer', offer.idOffer]"
                 >Editer</a
-              ><a class="btn btn-outline-danger" (click)="deleteOffer(offer)"
+              ><a 
+              *ngIf="userService.isAdmin"
+              class="btn btn-outline-danger" (click)="deleteOffer(offer)"
                 >Supprimer</a
               >
             </td>

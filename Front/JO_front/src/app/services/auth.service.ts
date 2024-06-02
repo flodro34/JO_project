@@ -23,8 +23,8 @@ export class AuthService {
     public regitredUser: User = new User();
 
     public loggedUser!: string;
-    public isloggedIn: boolean = false;
-    public roles!: string[];
+    public isloggedIn!: boolean;
+    public isAdmin!: boolean ;
 
   
   
@@ -92,11 +92,11 @@ export class AuthService {
     //     this.router.navigate(['/home']);
     // }
 
-    // setLoggedUserFromLocalStorage(login: string) {
-    //     this.loggedUser = login;
-    //     this.isloggedIn = true;
-    //     this.getUserRoles(login);
-    // }
+    setLoggedUserFromLocalStorage(login: string) {
+        this.loggedUser = login;
+        this.isloggedIn = true;
+        
+    }
 
     // getUserRoles(username: string){
     //     this.users.forEach((curUser)=>{

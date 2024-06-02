@@ -21,41 +21,6 @@ public class TicketController {
     @Autowired
     TicketService ticketService;
 
-//    @Autowired
-//    UserService userService;
-
-
-//    @PostMapping("/tickets")
-//    public ResponseEntity<?> createTicket(@RequestBody Ticket ticketData, HttpSession session) {
-//        String tokenUser = (String) session.getAttribute("tokenUser"); // Récup tokenUser de la session
-//        if (tokenUser == null) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User must be logged in to create a ticket");
-//        }
-//
-//        if (!userService.isValidTokenUser(tokenUser)) {
-//            return ResponseEntity.badRequest().body("Invalid user token");
-//        }
-//
-//        ticketData.setTokenUser(tokenUser);
-//        ticketData.setTokenTicket(ticketData.getTokenUser() + "-" + ticketData.getTokenTransaction());
-//        Ticket savedTicket = ticketService.saveTicket(ticketData);
-//        return ResponseEntity.ok(savedTicket);
-//    }
-
-//    @GetMapping("/tickets")
-//    public ResponseEntity<?> getAllTicketsByTokenUser(HttpSession session) {
-//        String tokenUser = (String) session.getAttribute("tokenUser");
-//        if (tokenUser == null) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User must be logged in to view tickets");
-//        }
-//
-//        if (!userService.isValidTokenUser(tokenUser)) {
-//            return ResponseEntity.badRequest().body("Invalid user token");
-//        }
-//
-//        List<Ticket> tickets = ticketService.findByTokenUser(tokenUser);
-//        return ResponseEntity.ok(tickets);
-//    }
 
     //@RequestMapping(method = RequestMethod.GET)
     @GetMapping
@@ -88,9 +53,9 @@ public class TicketController {
     }
 
     //@RequestMapping(value = "/userTicket/{idUser}", method = RequestMethod.GET)
-    @GetMapping("/userTicket/{idUser}")
-    public List<Ticket> getTicketsByUserId(@PathVariable("idUser") Long idUser){
-        return ticketService.findByUserIdUser(idUser);
+    @GetMapping("/ticket/user/{idUser}")
+    public List<Ticket> getAllByUserId(@PathVariable("idUser") Long idUser){
+        return ticketService.findByUser(idUser);
     }
 
     //@RequestMapping(value="/tickoff/{idOffer}",method = RequestMethod.GET)

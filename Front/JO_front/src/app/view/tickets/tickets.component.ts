@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TicketService } from '../../services/ticket.service';
 import { Ticket } from '../../model/ticket.model';
 import { AuthService } from '../../services/auth.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-tickets',
@@ -13,6 +14,7 @@ export class TicketsComponent implements OnInit{
   tickets?: Ticket[];
 
   constructor(private ticketService: TicketService,
+    public userService: UserService
               //public authService: AuthService
   ) {
     

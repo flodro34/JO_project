@@ -2,6 +2,7 @@ package com.fdr.jo_project.repositories;
 
 import com.fdr.jo_project.entities.Offer;
 import com.fdr.jo_project.entities.Ticket;
+import com.fdr.jo_project.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -13,7 +14,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
     List<Ticket> findByTokenUser(String tokenUser);
 
-    List<Ticket> findByUserIdUser(Long id);
+    List<Ticket> findByUser(User user);
 
     List<Ticket> findByOffer(Offer offer);
 

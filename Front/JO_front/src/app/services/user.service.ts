@@ -17,16 +17,28 @@ const httpOptions = {
 
 export class UserService {
 
+
   apiURL = 'http://localhost:8080/JO/api/users';
   loggedUser: string | null = null;
   isloggedIn: boolean = false;
-  roles: string[] = [];
+  userId: number | null = null;
+  isAdmin!: boolean ;
 
   constructor(private http: HttpClient) { }
 
   getUser(id:number): Observable<User>{
     const url = `${this.apiURL}/${id}`;
     return this.http.get<User>(url);
+  }
+
+  getUserConnected(): Observable<User> {
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      const url = `${this.apiURL}/${userId}`;
+      return this.http.get<User>(url);
+    } else {
+      throw new Error('Utilisateur non conneté');
+    }
   }
 
   getAllUsers(): Observable<User[]>{
@@ -55,8 +67,11 @@ export class UserService {
           if (authenticatedUser) {
             this.loggedUser = authenticatedUser.username;
             this.isloggedIn = true;
+            this.userId = authenticatedUser.idUser;
+            this.isAdmin = authenticatedUser.isAdmin ?? false;
             
             localStorage.setItem('loggedUser', this.loggedUser);
+            localStorage.setItem('userId', String(this.userId));
             localStorage.setItem('isloggedIn', String(this.isloggedIn));
             observer.next(true);
           } else {
@@ -77,7 +92,7 @@ export class UserService {
     localStorage.removeItem('isloggedIn');
     this.loggedUser = null;
     this.isloggedIn = false;
-    this.roles = [];
+    
   }
 
 
