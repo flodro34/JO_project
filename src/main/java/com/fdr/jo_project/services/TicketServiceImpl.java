@@ -67,9 +67,10 @@ public class TicketServiceImpl implements TicketService{
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<Ticket> findByTokenUser(String tokenUser) {
-        return ticketRepository.findByTokenUser(tokenUser);
+    public List<TicketDTO> getAllTicketsByTokenUser(String tokenUser) {
+        return ticketRepository.findAllByTokenUser(tokenUser).stream()
+                .map(this::convertEntityToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override

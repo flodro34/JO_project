@@ -12,6 +12,7 @@ public interface UserService {
     UserDTO updateUser(UserDTO userDTO);
 
     User saveWithToken(User user);
+    //User findUserByToken(String tokenUser);
 
     UserDTO getUser (Long id);
     List<UserDTO> getAllUsers();

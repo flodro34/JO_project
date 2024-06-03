@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
@@ -67,6 +68,12 @@ public class UserController {
             return ResponseEntity.status(401).body("Invalid username or password");
         }
     }
+
+//    @GetMapping("/user/by-token")
+//    public ResponseEntity<User> getUserByToken(@RequestParam String tokenUser) {
+//        Optional<User> user = userService.findUserByToken(tokenUser);
+//        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+//    }
 
 //   @RequestMapping(value ="/register",method = RequestMethod.POST)
 //    public ResponseEntity<?> registerUser(@RequestBody User user) {

@@ -36,6 +36,11 @@ public class UserServiceImpl implements UserService{
         return convertEntityToDTO(userRepository.save(convertDTOToEntity(u)));
     }
 
+//    @Override
+//    public User findUserByToken(String tokenUser) {
+//        return userRepository.findUserByToken(tokenUser);
+//    }
+
     @Override
     public User saveWithToken(User user){
         String token = CustomTokenUtil.generateCustomToken();
@@ -80,6 +85,7 @@ public class UserServiceImpl implements UserService{
     public User findByUsername(String username){
         return userRepository.findByUsername(username);
     }
+
 
 
 

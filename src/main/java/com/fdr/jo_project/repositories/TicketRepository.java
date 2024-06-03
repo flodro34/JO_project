@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
-    List<Ticket> findByTokenUser(String tokenUser);
+    List<Ticket> findAllByTokenUser(String tokenUser);
 
     List<Ticket> findByUser(User user);
 

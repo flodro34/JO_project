@@ -22,6 +22,7 @@ export class UserService {
   loggedUser: string | null = null;
   isloggedIn: boolean = false;
   userId: number | null = null;
+  userToken!:string;
   isAdmin!: boolean ;
 
   constructor(private http: HttpClient) { }
@@ -39,6 +40,10 @@ export class UserService {
     } else {
       throw new Error('Utilisateur non conneté');
     }
+  }
+
+  getTokenUser(): string {
+    return localStorage.getItem('userToken') ?? '';
   }
 
   getAllUsers(): Observable<User[]>{
@@ -67,11 +72,12 @@ export class UserService {
           if (authenticatedUser) {
             this.loggedUser = authenticatedUser.username;
             this.isloggedIn = true;
-            this.userId = authenticatedUser.idUser;
+            this.userToken = authenticatedUser.tokenUser;
             this.isAdmin = authenticatedUser.isAdmin ?? false;
             
             localStorage.setItem('loggedUser', this.loggedUser);
-            localStorage.setItem('userId', String(this.userId));
+            
+            localStorage.setItem('userToken', this.userToken);
             localStorage.setItem('isloggedIn', String(this.isloggedIn));
             observer.next(true);
           } else {
@@ -90,12 +96,18 @@ export class UserService {
   logout() {
     localStorage.removeItem('loggedUser');
     localStorage.removeItem('isloggedIn');
+    localStorage.removeItem('userToken');
+    localStorage.removeItem('userId');
     this.loggedUser = null;
     this.isloggedIn = false;
     
   }
 
-
+  checkAdminStatus(): boolean {
+    const isAdmin = localStorage.getItem('isAdmin');
+    console.log(isAdmin);
+    return isAdmin === 'true';
+  }
 
 
 

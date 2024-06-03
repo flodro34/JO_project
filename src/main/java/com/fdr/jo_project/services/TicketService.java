@@ -12,12 +12,11 @@ public interface TicketService {
 
     TicketDTO getTicket (Long id);
     List<TicketDTO> getAllTickets();
-
+    List<TicketDTO> getAllTicketsByTokenUser(String tokenUser);
 
     void deleteTicket(Ticket t);
     void deleteTicketById(Long id);
 
-    List<Ticket> findByTokenUser(String tokenUser);
     List<Ticket> findByUser(Long idUser);
     List<Ticket> findByOffer(Long idOffer);
 

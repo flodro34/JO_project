@@ -58,15 +58,13 @@ public class TicketController {
         return ticketService.findByUser(idUser);
     }
 
-    //@RequestMapping(value="/tickoff/{idOffer}",method = RequestMethod.GET)
-    @GetMapping("/tickoff/{idOffer}")
-    public List<Ticket> getTicketsByIdOffer(@PathVariable("idOffer") Long idOffer) {
-        return ticketService.findByOffer(idOffer);
-    }
     @GetMapping("/user/{tokenUser}")
-    public List<Ticket> getTicketsByTokenUser(@PathVariable("tokenUser") String tokenUser) {
-        return ticketService.findByTokenUser(tokenUser);
+    public ResponseEntity<List<TicketDTO>> getAllTicketsByTokenUser(@PathVariable("tokenUser") String tokenUser) {
+        List<TicketDTO> tickets = ticketService.getAllTicketsByTokenUser(tokenUser);
+        return ResponseEntity.ok(tickets);
     }
+
+
 
 
 }

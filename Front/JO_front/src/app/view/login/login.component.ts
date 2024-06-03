@@ -39,29 +39,6 @@ export class LoginComponent implements OnInit{
       }
     );
   }
-  // onLoggedin(){
-  //   console.log(this.user);
-  //   this.authService.login(this.user).subscribe({
-  //     next:(data)=> {
-  //       let jwtToken = data.headers.get('Authorization')!;
-  //       this.authService.saveToken(jwtToken);
-  //       this.router.navigate(['/']);
-  //     },error:(err: any )=>{
-  //       this.error = 1; 
-  //     }
-  //   });
-  // };
-
-  // onLoggedin()
-  // {
-  //   console.log(this.user);
-  //   let isValidUser: Boolean = this.authService.SignIn(this.user);
-  //   if (isValidUser)
-  //       this.router.navigate(['/']);
-  //   else
-  //      this.erreur=1;
-
-  // }
 
 
 }

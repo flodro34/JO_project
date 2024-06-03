@@ -24,12 +24,27 @@ export class TicketsComponent implements OnInit{
     this.loadTickets();
   }
 
-  loadTickets(){
-    this.ticketService.getAllTickets().subscribe((tickets) => {
-      this.tickets = tickets;
-      console.log(tickets);
-    });
+  // loadTickets(){
+  //   this.ticketService.getAllTickets().subscribe((tickets) => {
+  //     this.tickets = tickets;
+  //     console.log(tickets);
+  //   });
+  // }
+  loadTickets() {
+    // if (this.userService.checkAdminStatus()) {
+      // this.ticketService.getAllTickets().subscribe((tickets) => {
+      //   this.tickets = tickets;
+      //   console.log(tickets);
+      // });
+    // } else {
+      this.ticketService.getAllTicketsByUser().subscribe((tickets) => {
+        this.tickets = tickets;
+        console.log(tickets);
+      });
+    // }
   }
+
+
 
   deleteTicket(ticket: Ticket){
     let confirm = window.confirm("Are you sure you want to delete this ticket?");
