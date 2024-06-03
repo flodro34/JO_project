@@ -7,7 +7,8 @@ import com.fdr.jo_project.util.CustomTokenUtil;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,12 +23,12 @@ public class UserServiceImpl implements UserService{
     @Autowired
     ModelMapper modelMapper;
 
-
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public UserDTO saveUser(UserDTO u) {
-
+        u.setPassword(passwordEncoder.encode(u.getPassword()));
         return convertEntityToDTO(userRepository.save(convertDTOToEntity(u)));
     }
     @Override

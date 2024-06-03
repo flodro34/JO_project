@@ -28,8 +28,7 @@ export class LoginComponent implements OnInit{
     this.userService.SignIn(this.user).subscribe(
       (isValidUser) => {
         if (isValidUser) {
-          this.router.navigate(['/']); // Redirigez vers la page d'accueil après la connexion réussie
-        } else {
+          this.router.navigate(['/']); 
           this.message = 'Invalid username or password';
         }
       },

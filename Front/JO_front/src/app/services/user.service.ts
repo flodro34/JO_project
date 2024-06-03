@@ -53,7 +53,7 @@ export class UserService {
 
   addUser(user: User): Observable<User>{
     user.tokenUser = CustomTokenUtil.generateCustomToken();
-    return this.http.post<User>(this.apiURL, user, httpOptions);
+    return this.http.post<User>(`${this.apiURL}/register`, user, httpOptions);
   }
 
   deleteUser(id:number){

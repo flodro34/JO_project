@@ -6,6 +6,7 @@ import com.fdr.jo_project.entities.User;
 
 import com.fdr.jo_project.services.UserService;
 //import com.fdr.jo_project.util.JwtTokenUtil;
+import jakarta.xml.bind.SchemaOutputResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -68,6 +69,15 @@ public class UserController {
             return ResponseEntity.status(401).body("Invalid username or password");
         }
     }
+
+    @PostMapping("/register")
+    public ResponseEntity<UserDTO> registerUser(@RequestBody UserDTO userDTO) {
+        System.out.println("newUser");
+        UserDTO newUser = userService.saveUser(userDTO);
+        return ResponseEntity.ok(newUser);
+
+    }
+
 
 //    @GetMapping("/user/by-token")
 //    public ResponseEntity<User> getUserByToken(@RequestParam String tokenUser) {

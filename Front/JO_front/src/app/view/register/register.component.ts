@@ -31,7 +31,7 @@ export class RegisterComponent {
         this.message = 'Inscription réussie !!';
       },
       error => {
-        this.message = "Une erreur est surnenue lors de l\'enregistrement de l\'utilisateur";
+        this.message = "Une erreur est survenue lors de l\'enregistrement";
         console.error(error);
       }
     );
